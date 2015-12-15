@@ -1,0 +1,78 @@
+{
+    "name": "development",
+    "default_attributes": {
+        "php-fpm": {
+            "pools": [
+                {
+                    "name": "www",
+                    "listen": "/var/run/php5-fpm.sock",
+                    "user": "vagrant",
+                    "php_options": {
+                        "php_admin_value[suhosin.executor.include.whitelist]": "phar",
+                        "php_admin_value[serialize_precision]": 100,
+                        "php_admin_value[disable_functions]": "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority",
+                        "php_admin_flag[zend.enable_gc]": "On",
+                        "php_admin_flag[expose_php]": "Off",
+                        "php_admin_value[max_execution_time]": 240,
+                        "php_admin_value[max_input_time]": 120,
+                        "php_admin_value[memory_limit]": "512M",
+                        "php_admin_flag[mssql.datetimeconvert]": "Off",
+                        "php_admin_flag[mssql.secure_connection]": "Off",
+                        "php_admin_value[mssql.charset]": "UTF-8",
+                        "php_admin_value[date.timezone]": "Europe/London",
+                        "php_admin_flag[xdebug.remote_enable]" : "On",
+                        "php_admin_flag[xdebug.remote_connect_back]" : "On",
+                        "php_admin_value[xdebug.var_display_max_depth]": 5,
+                        "php_admin_value[xdebug.max_nesting_level]": 250
+                    }
+                }
+            ]
+        },
+        "php": {
+            "conf_dir": "/etc/php5",
+            "packages": [
+                "php5-curl",
+                "php5-intl",
+                "php5-sqlite",
+                "php5-mcrypt",
+                "php5-xdebug",
+                "php5-geoip"
+            ],
+            "directives": {
+                "suhosin.executor.include.whitelist": "phar",
+                "serialize_precision": 100,
+                "disable_functions": "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority",
+                "zend.enable_gc": "On",
+                "expose_php": "Off",
+                "max_execution_time": 240,
+                "max_input_time": 120,
+                "memory_limit": "512M",
+                "mssql.datetimeconvert": "Off",
+                "mssql.secure_connection": "Off",
+                "mssql.charset": "UTF-8",
+                "date.timezone": "Europe/London",
+                "xdebug.remote_enable" : 1,
+                "xdebug.remote_connect_back" : 1,
+                "xdebug.var_display_max_depth": 5,
+                "xdebug.max_nesting_level": 250
+            }
+        },
+        "app": {
+            "app": {
+                "site_name": "brighttree.local",
+                "index": "app_dev.php",
+                "home": "/vagrant",
+                "frontend_controller": "app_dev.php"
+            }, "db_site": {
+                "host": "172.16.37.21",
+                "port": 3306
+            }
+        },
+        "nginx": {
+            "default_site_enabled": false
+        }
+    },
+    "json_class": "Chef::Environment",
+    "description": "",
+    "chef_type": "environment"
+}

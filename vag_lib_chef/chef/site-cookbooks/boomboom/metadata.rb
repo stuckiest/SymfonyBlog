@@ -1,0 +1,10 @@
+maintainer       "boomboom"
+maintainer_email "info@bordelloboomboom.com"
+license          "All rights reserved"
+description      "Installs/Configures boomboom"
+version          "0.1.0"
+name             "boomboom"
+
+depends "nginx"
+depends "database"
+depends "postgresql"

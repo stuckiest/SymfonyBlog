@@ -1,0 +1,15 @@
+{
+    "name": "nginx",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Development",
+    "run_list": [
+        "recipe[apt]",
+        "recipe[nginx]",
+        "recipe[curl]",
+        "recipe[php]",
+        "recipe[php-fpm]",
+        "recipe[composer]",
+        "recipe[boomboom::site-host]"
+    ]
+}

@@ -1,0 +1,7 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: <%= node.app.db_site.host %>
+    database_port: null
+    database_name: <%= node.app.db_site.name %>
+    database_user: <%= node.app.db_site.user %>
+    database_password: <%= node.app.db_site.password %>

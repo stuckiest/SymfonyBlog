@@ -1,0 +1,11 @@
+site 'http://community.opscode.com/api/v1'
+
+cookbook "apt"
+cookbook "git"
+cookbook "nginx"
+cookbook "database"
+cookbook "mysql"
+cookbook "curl"
+cookbook "php"
+cookbook "php-fpm"
+cookbook "composer"

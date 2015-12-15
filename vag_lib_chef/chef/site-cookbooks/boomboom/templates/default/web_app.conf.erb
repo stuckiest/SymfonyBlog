@@ -1,0 +1,38 @@
+server {
+    listen 80;
+    server_name <%= node.app.app.site_name %>;
+
+    root <%= node.app.app.home %>/web;
+
+    # Hide information about version of server in HTTP headers ("Server: nginx/1.2.1" in this case "1.2.1" will not be displayed)
+    server_tokens off;
+    client_max_body_size 20M;
+
+    access_log /var/log/nginx/<%= node.app.app.site_name %>_access.log;
+    error_log  /var/log/nginx/<%= node.app.app.site_name %>_error.log;
+
+    index <%= node.app.app.frontend_controller %> index.html index.htm;
+
+    try_files $uri $uri/ @rewrite;
+
+    location @rewrite {
+        rewrite ^/(.*)$ /<%= node.app.app.frontend_controller %>/$1;
+    }
+
+    location ~ \.php(/|$) {
+        # try_files $uri =404;
+
+        fastcgi_index <%= node.app.app.frontend_controller %>;
+        fastcgi_pass unix:///var/run/php5-fpm.sock;
+
+        include fastcgi_params;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

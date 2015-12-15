@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "bento/ubuntu-14.04"
+  # config.vm.hostname = "brighttree.local"
+
+  config.vm.network :forwarded_port, guest: 80, host: 4567
+
+  config.ssh.forward_agent = true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.gui = false
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+
+  config.vm.synced_folder ".", "/vagrant"
+
+  config.librarian_chef.cheffile_dir = "chef"
+  config.omnibus.chef_version = :latest
+
+  config.vm.provision "chef_solo" do |chef|
+    #chef.custom_config_path = "Vagrantfile.chef"
+    chef.environment = "development"
+    chef.environments_path = "chef/environments/"
+
+    chef.cookbooks_path = [ "chef/cookbooks/", "chef/site-cookbooks/"]
+    chef.roles_path = "chef/roles/"
+
+    chef.add_role "site"
+  end
+end
